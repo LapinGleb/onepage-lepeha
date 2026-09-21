@@ -66,7 +66,7 @@
           <h2 class="section-title" id="works-title">Работы</h2>
           <span class="kicker" id="works-count"></span>
         </div>
-        <!-- Лента рендерится из массива WORKS в js/main.js; клик по карточке открывает Vimeo в <dialog> -->
+        <!-- Лента рендерится из массива WORKS в js/main.js; клик по карточке открывает видео (VK/Vimeo) в <dialog> -->
         <div class="works__grid" id="works-grid"></div>
       </div>
     </section>
@@ -109,6 +109,7 @@
   <!-- Лайтбокс: iframe создаётся по клику, удаляется при закрытии (тикет «Лента работ с Vimeo-лайтбоксом») -->
   <dialog id="lightbox" class="lightbox" aria-label="Видео">
     <button class="lightbox__close" type="button" aria-label="Закрыть">×</button>
+    <a class="lightbox__open" id="lightbox-open" href="#" target="_blank" rel="noopener">Открыть в источнике</a>
     <div class="lightbox__frame" id="lightbox-frame"></div>
   </dialog>
 

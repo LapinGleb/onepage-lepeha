@@ -6,22 +6,26 @@
  * Работы. Одна строка = одна карточка в ленте.
  *   title  — название на карточке;
  *   meta   — подпись (тип съёмки · год);
- *   vimeo  — id или ссылка Vimeo (напр. "76979871" или
- *            "https://vimeo.com/76979871"); пусто — карточка неактивна;
+ *   source — источник видео: "vimeo" (по умолчанию) или "vk";
+ *   video  — id или ссылка ролика: пусто — карточка неактивна;
+ *            Vimeo — "76979871" или "https://vimeo.com/76979871";
+ *            VK    — "https://vk.com/video-123456_789012",
+ *                    "-123456_789012" или
+ *                    "https://vk.com/video_ext.php?oid=-123456&id=789012";
  *   poster — путь к обложке (пусто — градиентная заглушка);
- *   hash   — приватный хэш для unlisted-видео (необязательно);
+ *   hash   — приватный ключ для закрытого/unlisted видео (необязательно);
  *   ratio  — "horizontal" (16:9, по умолчанию) или "vertical" (9:16).
  *
- * Сейчас vimeo — демонстрационный ролик Vimeo (лайтбокс работает на заглушках).
+ * Сейчас video — демонстрационный ролик Vimeo (лайтбокс работает на заглушках).
  * Заменить реальным контентом: тикет «Заменить заглушки реальным контентом».
  */
 var WORKS = [
-  { title: "Аня и Дмитрий",     meta: "Свадьба · 2024",      vimeo: "76979871", hash: "", ratio: "horizontal", poster: "" },
-  { title: "Рассвет над Волгой", meta: "Love story · 2024",  vimeo: "76979871", hash: "", ratio: "horizontal", poster: "" },
-  { title: "Фестиваль огней",   meta: "Событие · 2023",      vimeo: "76979871", hash: "", ratio: "horizontal", poster: "" },
-  { title: "Марина и Кирилл",   meta: "Свадьба · 2023",      vimeo: "76979871", hash: "", ratio: "horizontal", poster: "" },
-  { title: "Северная история",  meta: "Свадьба · 2022",      vimeo: "76979871", hash: "", ratio: "horizontal", poster: "" },
-  { title: "Тёплый вечер",      meta: "Портрет · 2022",      vimeo: "76979871", hash: "", ratio: "horizontal", poster: "" }
+  { title: "Аня и Дмитрий",     meta: "Свадьба · 2024",      source: "vimeo", video: "76979871", hash: "", ratio: "horizontal", poster: "" },
+  { title: "Рассвет над Волгой", meta: "Love story · 2024",  source: "vimeo", video: "76979871", hash: "", ratio: "horizontal", poster: "" },
+  { title: "Фестиваль огней",   meta: "Событие · 2023",      source: "vimeo", video: "76979871", hash: "", ratio: "horizontal", poster: "" },
+  { title: "Марина и Кирилл",   meta: "Свадьба · 2023",      source: "vimeo", video: "76979871", hash: "", ratio: "horizontal", poster: "" },
+  { title: "Северная история",  meta: "Свадьба · 2022",      source: "vimeo", video: "76979871", hash: "", ratio: "horizontal", poster: "" },
+  { title: "Тёплый вечер",      meta: "Портрет · 2022",      source: "vk", video: "https://vkvideo.ru/video-234651850_456239081", hash: "", ratio: "horizontal", poster: "" }
 ];
 
 (function () {
@@ -33,13 +37,38 @@ var WORKS = [
     return (n < 10 ? "0" : "") + n;
   }
 
-  /* Принимает id ("76979871") или ссылку ("https://vimeo.com/76979871"). */
-  function vimeoId(value) {
-    if (!value) return "";
-    var raw = String(value).trim();
+  /* Разбор work.video по источнику. Возвращает нормализованное видео или null.
+     vimeo → { source, id, sourceUrl }; vk → { source, oid, id, sourceUrl }. */
+  function parseVideo(work) {
+    var raw = String(work.video || "").trim();
+    if (!raw) return null;
+    return work.source === "vk" ? parseVk(raw) : parseVimeo(raw);
+  }
+
+  /* Vimeo: id ("76979871") или ссылка ("https://vimeo.com/76979871"). */
+  function parseVimeo(raw) {
     var match = raw.match(/vimeo\.com\/(?:video\/)?(\d+)/);
-    if (match) return match[1];
-    return /^\d+$/.test(raw) ? raw : "";
+    var id = match ? match[1] : (/^\d+$/.test(raw) ? raw : "");
+    if (!id) return null;
+    return { source: "vimeo", id: id, sourceUrl: "https://vimeo.com/" + id };
+  }
+
+  /* VK: "vk.com/video<oid>_<id>", "<oid>_<id>" или
+     "video_ext.php?oid=…&id=…". Знак oid — часть id. */
+  function parseVk(raw) {
+    var oid = "";
+    var id = "";
+    var match = raw.match(/video(-?\d+)_(\d+)/) || raw.match(/^(-?\d+)_(\d+)$/);
+    if (match) {
+      oid = match[1];
+      id = match[2];
+    } else {
+      var oidMatch = raw.match(/[?&]oid=(-?\d+)/);
+      var idMatch = raw.match(/[?&]id=(\d+)/);
+      if (oidMatch && idMatch) { oid = oidMatch[1]; id = idMatch[1]; }
+    }
+    if (!oid || !id) return null;
+    return { source: "vk", oid: oid, id: id, sourceUrl: "https://vk.com/video" + oid + "_" + id };
   }
 
   function buildMedia(work, index) {
@@ -63,7 +92,7 @@ var WORKS = [
   /* Карточка: <article><button>…</button></article>.
      Кнопка, а не ссылка: плеер открывается в лайтбоксе, а не переходом. */
   function buildCard(work, index) {
-    var id = vimeoId(work.vimeo);
+    var video = parseVideo(work);
 
     var card = document.createElement("article");
     card.className = "work-card";
@@ -76,8 +105,11 @@ var WORKS = [
     thumb.className = "work-card__thumb";
     thumb.appendChild(buildMedia(work, index));
 
-    if (id) {
-      btn.dataset.vimeo = id;
+    if (video) {
+      btn.dataset.source = video.source;
+      btn.dataset.id = video.id;
+      if (video.oid) btn.dataset.oid = video.oid;
+      btn.dataset.sourceUrl = video.sourceUrl;
       if (work.hash) btn.dataset.hash = work.hash;
       btn.dataset.ratio = work.ratio === "vertical" ? "vertical" : "horizontal";
       btn.dataset.title = work.title;
@@ -144,8 +176,21 @@ var WORKS = [
       frame.replaceChildren(); // удаление iframe останавливает воспроизведение
     }
 
-    function open(btn) {
-      var params = new URLSearchParams({
+    /* URL встраиваемого плеера по источнику карточки. */
+    function embedUrl(btn) {
+      var hash = btn.dataset.hash;
+      if (btn.dataset.source === "vk") {
+        var vk = new URLSearchParams({
+          oid: btn.dataset.oid,
+          id: btn.dataset.id,
+          hd: "2",
+          autoplay: "1",
+          mute: "1"          // autoplay в браузерах разрешён только без звука
+        });
+        if (hash) vk.set("hash", hash);
+        return "https://vk.com/video_ext.php?" + vk.toString();
+      }
+      var vimeo = new URLSearchParams({
         autoplay: "1",
         muted: "1",          // обязателен для автоплея в Chrome/Safari
         title: "0",
@@ -154,15 +199,24 @@ var WORKS = [
         dnt: "1",
         playsinline: "1"
       });
-      if (btn.dataset.hash) params.set("h", btn.dataset.hash);
+      if (hash) vimeo.set("h", hash);
+      return "https://player.vimeo.com/video/" + btn.dataset.id + "?" + vimeo.toString();
+    }
 
+    function open(btn) {
       var iframe = document.createElement("iframe");
-      iframe.src = "https://player.vimeo.com/video/" + btn.dataset.vimeo + "?" + params.toString();
+      iframe.src = embedUrl(btn);
       iframe.title = btn.dataset.title || "Видео";
       iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture");
       iframe.setAttribute("allowfullscreen", "");
       clearFrame();
       frame.appendChild(iframe);
+
+      var sourceLink = document.getElementById("lightbox-open");
+      if (sourceLink && btn.dataset.sourceUrl) {
+        sourceLink.href = btn.dataset.sourceUrl;
+        sourceLink.textContent = btn.dataset.source === "vk" ? "Открыть в VK" : "Открыть в Vimeo";
+      }
 
       dialog.dataset.ratio = btn.dataset.ratio || "horizontal";
       lastFocus = btn;

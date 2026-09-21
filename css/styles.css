@@ -205,6 +205,20 @@ button { font: inherit; color: inherit; }
   cursor: pointer;
 }
 .lightbox__close:hover { color: var(--accent); }
+.lightbox__open {
+  position: fixed;
+  left: 16px;
+  bottom: 14px;
+  z-index: 2;
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--fg);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.lightbox__open:hover { color: var(--accent); border-color: var(--accent); }
 .lightbox__frame {
   width: min(92vw, 1200px);
   aspect-ratio: 16 / 9;
