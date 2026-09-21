@@ -1,7 +1,7 @@
 # Подключить деплой на GitHub Pages
 
 Type: task
-Status: open
+Status: resolved
 Blocked by: 06
 
 ## Question
@@ -36,18 +36,18 @@ Blocked by: 06
   (непустой), `_site/css/styles.css`, `_site/js/main.js`; `prototype/` и `.scratch/` отсутствуют.
   Каталог `img/` при появлении попадёт в артефакт (условие `if [ -d img ]`).
 
-**Статус workflow и рабочий URL — не подтверждены:** из этого окружения нет доступа к `origin`
-(`git ls-remote` → `Permission denied (publickey)`), поэтому пуш и запуск workflow не выполнены.
-Остаётся сделать вручную:
+**Задеплоено:** Pages включён (Settings → Pages → Source: **GitHub Actions**), workflow
+«Deploy to GitHub Pages» отработал, сайт открывается на
+**https://lapingleb.github.io/onepage-lepeha/**.
 
-1. **Включить Pages:** Settings → Pages → Build and deployment → **Source: GitHub Actions**.
-   Без этого шаг `configure-pages` падает с «Get Pages site failed … Not Found»; `enablement: true`
-   тут не поможет — он требует отдельный PAT, штатным `GITHUB_TOKEN` Pages не включить. (Если
-   репозиторий приватный, GitHub Pages на бесплатном плане недоступен — нужен публичный репо или
-   платный план.)
-2. запушить в `main`, дождаться зелёного workflow «Deploy to GitHub Pages» (вкладка Actions);
-3. открыть `https://lapingleb.github.io/onepage-lepeha/` и проверить на десктопе и в мобе
-   (в `index.html` канонический/OG-URL уже переставлены на этот адрес).
+Проверено снаружи: `index.html` и ассеты отдаются — `css/styles.css` и `js/main.js` приходят с
+корректным содержимым (стили и скрипт видны в ответе), то есть относительные пути под
+`/onepage-lepeha/` работают. Осталось eyeball-проверить на десктопе и в мобе: контент пока на
+заглушках, лайтбокс крутит демо-ролик Vimeo.
+
+Первый запуск падал на `configure-pages` с «Get Pages site failed … Not Found», пока Pages не был
+включён; `enablement: true` не помогает — требует отдельный PAT, штатным `GITHUB_TOKEN` Pages не
+включить. (Если репозиторий приватный, GitHub Pages на бесплатном плане недоступен.)
 
 **Кастомный домен:** домен у друга неизвестен — раздел 5 брифа без ответа (не «нет»), поэтому
 остаётся в тумане карты. Когда появится — Settings → Pages → Custom domain: DNS-запись (`A` на

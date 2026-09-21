@@ -32,6 +32,7 @@ Tracker: local markdown (`.scratch/onepage-videographer/`)
 - [Согласовать дизайн с другом](issues/05-soglasovat-dizayn.md): выбран **A «Кино» целиком**, статичный hero-кадр, фиксированный состав секций, «О себе» — 3 предложения + портрет 3:4 слева; идём в сборку.
 - [Собрать каркас страницы](issues/06-sobrat-karkas.md): собраны `index.html`, `css/styles.css`, `js/main.js` (направление A, сетка 3/2/1, reveal, OG-заглушки); открывается по `file://`, лента — контейнер с карточками-заглушками без лайтбокса.
 - [Лента работ с Vimeo-лайтбоксом](issues/07-lenta-rabot.md): лента из массива `WORKS` (`title/meta/vimeo/poster` + `hash/ratio`); карточка-кнопка → `<dialog>`-лайтбокс с iframe по клику (`autoplay+muted+dnt+playsinline`, очистка при закрытии), lazy-load постеров; обновляются одним строкой массива. Заглушки ведут на демо-ролик Vimeo `76979871`.
+- [Подключить деплой на GitHub Pages](issues/08-deploy-github-pages.md): деплой на GitHub Pages через GitHub Actions (`.github/workflows/pages.yml`, zero-build: `index.html`/`css`/`js`/`img/` → `_site` → `upload-pages-artifact` → `deploy-pages`); сайт живёт на `https://lapingleb.github.io/onepage-lepeha/`. GitLab-ресёрч `03` устарел. Остаётся кастомный домен (в тумане).
 
 ## Not yet specified
 
