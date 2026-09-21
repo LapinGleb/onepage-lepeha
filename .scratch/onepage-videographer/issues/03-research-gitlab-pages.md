@@ -17,6 +17,9 @@ Blocked by:
 
 ## Answer
 
+> **Обновление:** хостинг переехал на **GitHub**; актуальный деплой — тикет
+> «Подключить деплой на GitHub Pages» (`08-deploy-github-pages.md`). Ответ ниже — исторический.
+
 Готовый `.gitlab-ci.yml` и пошаговый гайд — в исследовании
 `.scratch/onepage-videographer/research/gitlab-pages.md`.
 

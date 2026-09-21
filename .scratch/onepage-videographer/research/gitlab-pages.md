@@ -1,5 +1,8 @@
 # Публикация статики без сборки на GitLab Pages
 
+> **Устарело.** Хостинг переехал на **GitHub** — деплой настроен через GitHub Actions / GitHub
+> Pages, см. тикет `issues/08-deploy-github-pages.md`. Этот ресёрч оставлен как исторический.
+
 Репозиторий: `LapinGleb/onepage-lepeha` (GitLab.com).
 Целевой сайт: чистый `index.html` + `css/` + `js/` + `images/`, без npm и без шага сборки.
 
