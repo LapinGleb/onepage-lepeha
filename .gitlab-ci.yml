@@ -7,11 +7,8 @@ deploy-pages:
     - mkdir -p public
     - cp -r index.html css js public/
     - if [ -d images ]; then cp -r images public/; fi
-  # Актуальный синтаксис GitLab 17.10+: публикует public/ и сам добавляет его в artifacts:paths.
+  # pages: true публикует public/ и на GitLab 17.10+ сам добавляет его в artifacts:paths;
+  # дублировать в artifacts вручную не нужно.
   pages: true
-  # Явный artifacts:paths нужен для GitLab < 17.10; на 17.10+ избыточен, но безвреден.
-  artifacts:
-    paths:
-      - public
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

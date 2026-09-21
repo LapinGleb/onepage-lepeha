@@ -24,7 +24,7 @@ Blocked by: 03, 06
 
 Проверено в этой сессии:
 
-- конфиг прошёл **GitLab CI Lint** — `valid: true`, без errors и warnings;
+- конфиг прогнан через **GitLab CI Lint** (API) — `valid: true`, без errors и warnings;
 - локальная симуляция job: в артефакте ровно `public/index.html` (непустой), `public/css/styles.css`,
   `public/js/main.js`; `prototype/`, `.scratch/`, `.gitlab-ci.yml` отсутствуют.
 
@@ -34,10 +34,13 @@ Blocked by: 03, 06
 
 1. `git push -u origin main`;
 2. дождаться зелёного job `deploy-pages` (Deploy → Pipelines);
-3. открыть Deploy → Pages — URL вида `https://<namespace>.gitlab.io/onepage-lepeha/`, проверить на
-   десктопе и в мобе.
+3. открыть Deploy → Pages — точный URL появится там; ожидаемая форма —
+   `https://<namespace>.gitlab.io/onepage-lepeha/`, но проект может получить **unique domain**
+   вида `https://onepage-lepeha-<id>.gitlab.io/` (это можно выключить в Deploy → Pages). Проверить
+   на десктопе и в мобе.
 
-**Кастомный домен:** у друга домена нет (раздел 5 брифа без ответа) → остаётся в тумане карты.
+**Кастомный домен:** домен у друга неизвестен — раздел 5 брифа без ответа (не «нет»), поэтому
+остаётся в тумане карты.
 Когда домен появится — шаги в `research/gitlab-pages.md` §3: DNS-записи (`A 35.185.44.232` /
 `AAAA 2600:1901:0:7b8a::` для корня либо `CNAME`→`<namespace>.gitlab.io` для поддомена), `TXT`
 для верификации владения, затем Deploy → Pages → New Domain и Force HTTPS; Let's Encrypt на Free
