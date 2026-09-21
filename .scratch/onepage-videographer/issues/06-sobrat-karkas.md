@@ -19,7 +19,7 @@ Blocked by: 04
 
 Собран каркас направления A «Кино». Открыть: `open index.html` (работает по `file://`).
 
-- **`index.html`** (корень): семантика, `meta` + Open Graph/Twitter (абсолютные URL-заглушки `USERNAME.gitlab.io/onepage-lepeha`), подключение `css/styles.css` и `js/main.js` **относительными путями** — работает и на `file://`, и на project Pages под `/onepage-lepeha/`. Секции: Hero → Работы → О себе (портрет 3:4 + текст) → Контакты → футер.
+- **`index.html`** (корень): семантика, `meta` + Open Graph/Twitter (абсолютные URL-заглушки `lapingleb.github.io/onepage-lepeha`), подключение `css/styles.css` и `js/main.js` **относительными путями** — работает и на `file://`, и на project Pages под `/onepage-lepeha/`. Секции: Hero → Работы → О себе (портрет 3:4 + текст) → Контакты → футер.
 - **`css/styles.css`**: палитра/шкала/шрифты в `:root` (`--bg/--fg/--muted/--accent/--line`), hero со статичным кадром через `--hero-image`, сетка работ **3/2/1**, контакты крупными строками, reveal-анимация появления с `prefers-reduced-motion`.
 - **`js/main.js`**: массив `WORKS` (6 заглушек: `title/meta/vimeo/poster`), рендер карточек, `IntersectionObserver`-reveal, год в футере.
 - Лента — карточки-заглушки **без лайтбокса**; лайтбокс, lazy-load постеров и доступность — тикет «Лента работ с Vimeo-лайтбоксом».

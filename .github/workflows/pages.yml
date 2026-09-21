@@ -1,4 +1,4 @@
-# Публикация статического сайта (index.html, css/, js/, images/) на GitHub Pages.
+# Публикация статического сайта (index.html, css/, js/, img/) на GitHub Pages.
 # Сборки нет: файлы собираются в _site и отдаются как есть.
 # Публикуется только содержимое сайта — prototype/ и .scratch/ в артефакт не попадают.
 name: Deploy to GitHub Pages
@@ -25,19 +25,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Assemble site
         run: |
           mkdir -p _site
           cp -r index.html css js _site/
-          if [ -d images ]; then cp -r images _site/; fi
+          if [ -d img ]; then cp -r img _site/; fi
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 

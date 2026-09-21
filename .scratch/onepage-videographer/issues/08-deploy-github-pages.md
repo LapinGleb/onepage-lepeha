@@ -2,7 +2,7 @@
 
 Type: task
 Status: open
-Blocked by: 03, 06
+Blocked by: 06
 
 ## Question
 
@@ -21,18 +21,20 @@ Blocked by: 03, 06
 Деплой переведён на **GitHub Actions + GitHub Pages**. `.gitlab-ci.yml` удалён, добавлен
 `.github/workflows/pages.yml` (job `deploy`):
 
-- шаг `Assemble site` копирует `index.html`, `css/`, `js/` и, если появится, `images/` в `_site/`;
-  `prototype/` и `.scratch/` в артефакт не попадают и публично недоступны;
-- `actions/upload-pages-artifact@v3` → `actions/deploy-pages@v5` — официальный флоу; Jekyll не
-  запускается, `.nojekyll` не нужен;
+- шаг `Assemble site` копирует `index.html`, `css/`, `js/` и, если появится, `img/` (именно так —
+  сайт ссылается на `img/og-cover.jpg` и `../img/hero.jpg`) в `_site/`; `prototype/` и `.scratch/`
+  в артефакт не попадают и публично недоступны;
+- `actions/checkout@v7`, `actions/configure-pages@v6`, `actions/upload-pages-artifact@v5` →
+  `actions/deploy-pages@v5` — официальный флоу; Jekyll не запускается, `.nojekyll` не нужен;
 - триггеры: push в `main` и ручной запуск (`workflow_dispatch`); права `pages: write` + `id-token: write`,
   конкурентность сгруппирована (`concurrency: pages`).
 
 Проверено в этой сессии:
 
 - workflow-файл — валидный YAML;
-- локальная симуляция сборки: в артефакт попадают ровно `_site/index.html` (непустой),
-  `_site/css/styles.css`, `_site/js/main.js`; `prototype/` и `.scratch/` отсутствуют.
+- локальная симуляция шага сборки: без каталога картинок артефакт содержит ровно `_site/index.html`
+  (непустой), `_site/css/styles.css`, `_site/js/main.js`; `prototype/` и `.scratch/` отсутствуют.
+  Каталог `img/` при появлении попадёт в артефакт (условие `if [ -d img ]`).
 
 **Статус workflow и рабочий URL — не подтверждены:** из этого окружения нет доступа к `origin`
 (`git ls-remote` → `Permission denied (publickey)`), поэтому пуш и запуск workflow не выполнены.

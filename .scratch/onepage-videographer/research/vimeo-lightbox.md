@@ -314,16 +314,16 @@ MDN: автоплей (в т.ч. `element.play()` вне обработчика 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Иван Лепеха — видеограф | Свадьбы и события</title>
   <meta name="description" content="Съёмка свадеб и событий. Кинематографичные фильмы, живые эмоции.">
-  <link rel="canonical" href="https://USERNAME.gitlab.io/">
+  <link rel="canonical" href="https://lapingleb.github.io/onepage-lepeha/">
 
   <!-- Open Graph: Telegram, VK -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Иван Лепеха — видеограф">
   <meta property="og:title" content="Иван Лепеха — видеограф | Свадьбы и события">
   <meta property="og:description" content="Съёмка свадеб и событий. Кинематографичные фильмы, живые эмоции.">
-  <meta property="og:url" content="https://USERNAME.gitlab.io/">
-  <meta property="og:image" content="https://USERNAME.gitlab.io/img/og-cover.jpg">
-  <meta property="og:image:secure_url" content="https://USERNAME.gitlab.io/img/og-cover.jpg">
+  <meta property="og:url" content="https://lapingleb.github.io/onepage-lepeha/">
+  <meta property="og:image" content="https://lapingleb.github.io/onepage-lepeha/img/og-cover.jpg">
+  <meta property="og:image:secure_url" content="https://lapingleb.github.io/onepage-lepeha/img/og-cover.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -334,7 +334,7 @@ MDN: автоплей (в т.ч. `element.play()` вне обработчика 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Иван Лепеха — видеограф">
   <meta name="twitter:description" content="Съёмка свадеб и событий.">
-  <meta name="twitter:image" content="https://USERNAME.gitlab.io/img/og-cover.jpg">
+  <meta name="twitter:image" content="https://lapingleb.github.io/onepage-lepeha/img/og-cover.jpg">
 </head>
 <body>
 ```
