@@ -40,7 +40,11 @@ Blocked by: 06
 (`git ls-remote` → `Permission denied (publickey)`), поэтому пуш и запуск workflow не выполнены.
 Остаётся сделать вручную:
 
-1. Settings → Pages → **Source: GitHub Actions** (иначе `deploy-pages` не опубликует сайт);
+1. **Включить Pages:** Settings → Pages → Build and deployment → **Source: GitHub Actions**.
+   Без этого шаг `configure-pages` падает с «Get Pages site failed … Not Found»; `enablement: true`
+   тут не поможет — он требует отдельный PAT, штатным `GITHUB_TOKEN` Pages не включить. (Если
+   репозиторий приватный, GitHub Pages на бесплатном плане недоступен — нужен публичный репо или
+   платный план.)
 2. запушить в `main`, дождаться зелёного workflow «Deploy to GitHub Pages» (вкладка Actions);
 3. открыть `https://lapingleb.github.io/onepage-lepeha/` и проверить на десктопе и в мобе
    (в `index.html` канонический/OG-URL уже переставлены на этот адрес).

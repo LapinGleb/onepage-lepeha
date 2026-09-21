@@ -1,6 +1,11 @@
 # Публикация статического сайта (index.html, css/, js/, img/) на GitHub Pages.
 # Сборки нет: файлы собираются в _site и отдаются как есть.
 # Публикуется только содержимое сайта — prototype/ и .scratch/ в артефакт не попадают.
+#
+# ПРЕДУСЛОВИЕ (один раз, вручную): Settings → Pages → Build and deployment →
+# Source: **GitHub Actions**. Штатный GITHUB_TOKEN не может включить Pages сам
+# (параметр enablement у configure-pages требует отдельный PAT), поэтому до этого
+# шага `configure-pages` падает с "Get Pages site failed: Not Found".
 name: Deploy to GitHub Pages
 
 on:
