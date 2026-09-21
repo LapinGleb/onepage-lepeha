@@ -1,0 +1,305 @@
+/* ==========================================================================
+   Один лендинг видеографа — тёмное кинематографичное направление «Кино»
+   zero-build: без препроцессоров и сборки.
+   ========================================================================== */
+
+:root {
+  --bg: #0a0a0b;
+  --fg: #f2efe9;
+  --muted: #9a968d;
+  --accent: #c9a227;
+  --line: rgba(242, 239, 233, 0.16);
+
+  --display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --body: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --container: 1180px;
+  --pad: clamp(20px, 5vw, 64px);
+  --section-y: clamp(56px, 10vw, 120px);
+
+  /* Заменить на реальный hero-кадр (тикет «Заменить заглушки реальным контентом»):
+     background-image: url("../img/hero.jpg"); */
+  --hero-image: linear-gradient(135deg, #2b2419, #6b5636 55%, #12100c);
+}
+
+/* --- reset ---------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* --- общие ---------------------------------------------------------------- */
+.container { max-width: var(--container); margin: 0 auto; padding-inline: var(--pad); }
+.kicker {
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.rule { height: 1px; background: var(--line); margin: 34px 0; border: 0; }
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+.section-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1.05;
+}
+
+/* --- hero ----------------------------------------------------------------- */
+.hero {
+  position: relative;
+  min-height: 86vh;
+  display: flex;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.hero__media {
+  position: absolute;
+  inset: 0;
+  background-image: var(--hero-image);
+  background-size: cover;
+  background-position: center;
+}
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(10, 10, 11, 0.95));
+}
+.hero__inner { position: relative; padding-block-end: clamp(40px, 8vh, 90px); }
+.hero__title {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(52px, 10vw, 140px);
+  line-height: 0.95;
+  margin-top: 14px;
+}
+.hero__lead {
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: clamp(14px, 1.5vw, 18px);
+  line-height: 1.7;
+  margin-top: 22px;
+}
+.hero__cue { display: inline-block; text-decoration: none; }
+.hero__cue:hover { color: var(--fg); }
+
+/* --- работы --------------------------------------------------------------- */
+.works { padding-block: var(--section-y); }
+.works__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 2.4vw, 28px);
+}
+.works__empty {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 14px;
+  padding: 40px 0;
+}
+
+.work-card { display: block; }
+.work-card__btn {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.work-card__btn:disabled { cursor: default; }
+.work-card__thumb { position: relative; display: block; overflow: hidden; }
+.work-card__media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  transition: filter 0.5s ease, transform 0.6s ease;
+}
+.work-card__btn:hover .work-card__media,
+.work-card__btn:focus-visible .work-card__media { filter: brightness(1.15); transform: scale(1.015); }
+.work-card__play {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  translate: -50% -50%;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 1px solid rgba(242, 239, 233, 0.85);
+  background: rgba(0, 0, 0, 0.45);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.work-card__play::before {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 54%;
+  translate: -50% -50%;
+  border-style: solid;
+  border-width: 8px 0 8px 13px;
+  border-color: transparent transparent transparent var(--fg);
+}
+.work-card__btn:hover .work-card__play { background: rgba(201, 162, 39, 0.85); border-color: var(--accent); }
+.work-card__idx {
+  display: block;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin: 14px 0 6px;
+}
+.work-card__title {
+  display: block;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(20px, 2.2vw, 28px);
+  line-height: 1.15;
+}
+.work-card__meta { display: block; color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+/* --- лайтбокс -------------------------------------------------------------- */
+.lightbox {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  max-width: none;
+  max-height: none;
+  overflow: visible;
+}
+.lightbox::backdrop { background: rgba(0, 0, 0, 0.92); }
+.lightbox__close {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  z-index: 2;
+  padding: 4px 10px;
+  border: 0;
+  background: none;
+  color: var(--fg);
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+}
+.lightbox__close:hover { color: var(--accent); }
+.lightbox__frame {
+  width: min(92vw, 1200px);
+  aspect-ratio: 16 / 9;
+  max-height: 88vh;
+  background: #000;
+}
+.lightbox[data-ratio="vertical"] .lightbox__frame {
+  width: min(92vw, calc(88vh * 9 / 16));
+  height: 88vh;
+  aspect-ratio: auto;
+}
+.lightbox__frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+/* --- «О себе» -------------------------------------------------------------- */
+.about { padding-block: var(--section-y); border-top: 1px solid var(--line); }
+.about__grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+.about__portrait { aspect-ratio: 3 / 4; margin-top: 16px; }
+.about__text {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(22px, 3vw, 38px);
+  line-height: 1.35;
+  max-width: 26ch;
+}
+
+/* --- контакты -------------------------------------------------------------- */
+.contacts { padding-block: clamp(40px, 7vw, 90px); border-top: 1px solid var(--line); }
+.contacts__list { list-style: none; margin: 22px 0 0; padding: 0; }
+.contacts__list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(30px, 5vw, 64px);
+  line-height: 1.1;
+  transition: color 0.25s ease;
+}
+.contacts__list a span {
+  font-family: var(--body);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.contacts__list a:hover { color: var(--accent); }
+
+/* --- футер ----------------------------------------------------------------- */
+.footer { border-top: 1px solid var(--line); padding-block: 28px; }
+.footer__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* --- плейсхолдеры-«кадры» (градиенты вместо фото) -------------------------- */
+.ph-1 { background: linear-gradient(135deg, #2b2419, #6b5636 55%, #12100c); }
+.ph-2 { background: linear-gradient(150deg, #0f1b24, #2e5566 60%, #0a0d10); }
+.ph-3 { background: linear-gradient(120deg, #241016, #5e2b3a 55%, #120709); }
+.ph-4 { background: linear-gradient(160deg, #141414, #4a4a4a 60%, #0b0b0b); }
+.ph-5 { background: linear-gradient(140deg, #101c16, #356048 60%, #0a0f0c); }
+.ph-6 { background: linear-gradient(130deg, #1b1526, #4a3a6b 58%, #0d0a12); }
+
+/* --- лёгкое появление секций ------------------------------------------------ */
+/* Прячем только когда JS доступен (.js на <html>), чтобы без JS контент был виден. */
+.js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .work-card__media { transition: none; }
+}
+
+/* --- адаптив: 3 / 2 / 1 колонки -------------------------------------------- */
+@media (max-width: 1024px) {
+  .works__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 860px) {
+  .about__grid { grid-template-columns: 1fr; gap: 18px; }
+  .about__portrait { max-width: 260px; }
+}
+@media (max-width: 640px) {
+  .works__grid { grid-template-columns: 1fr; }
+  .contacts__list a { font-size: clamp(24px, 8vw, 34px); }
+}

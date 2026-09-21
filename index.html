@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+    ЗАГЛУШКИ (заменить при получении контента, тикет «Заменить заглушки реальным контентом»):
+      • имя/бренд: "Имя Фамилия" в title, og:*, hero-kicker, футере;
+      • канонический URL и og:url — реальный домен вместо USERNAME.gitlab.io/onepage-lepeha;
+      • img/og-cover.jpg (1200×630, JPEG/PNG, < 5 МБ);
+      • контакты в секции «Контакты» (t.me, tel:, vk.com, mailto:);
+      • hero-кадр: задать --hero-image в css/styles.css (сейчас градиент);
+      • постеры работ: массив WORKS в js/main.js.
+    Пути к css/js — относительные, чтобы сайт работал и на file://, и на project Pages (/onepage-lepeha/).
+  -->
+  <title>Имя Фамилия — видеограф | Свадьбы и события</title>
+  <meta name="description" content="Съёмка свадеб и событий. Кинематографичные фильмы, живые эмоции, монтаж, который хочется пересматривать.">
+  <link rel="canonical" href="https://USERNAME.gitlab.io/onepage-lepeha/">
+
+  <!-- Open Graph: Telegram, VK -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Имя Фамилия — видеограф">
+  <meta property="og:title" content="Имя Фамилия — видеограф | Свадьбы и события">
+  <meta property="og:description" content="Съёмка свадеб и событий. Кинематографичные фильмы, живые эмоции.">
+  <meta property="og:url" content="https://USERNAME.gitlab.io/onepage-lepeha/">
+  <meta property="og:image" content="https://USERNAME.gitlab.io/onepage-lepeha/img/og-cover.jpg">
+  <meta property="og:image:secure_url" content="https://USERNAME.gitlab.io/onepage-lepeha/img/og-cover.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Кадр из свадебного фильма">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Имя Фамилия — видеограф">
+  <meta name="twitter:description" content="Съёмка свадеб и событий.">
+  <meta name="twitter:image" content="https://USERNAME.gitlab.io/onepage-lepeha/img/og-cover.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+  <header class="hero" id="top">
+    <div class="hero__media" aria-hidden="true"></div>
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <p class="kicker">Видеограф · свадьбы и события</p>
+      <h1 class="hero__title">Кадры,<br>которые<br>остаются</h1>
+      <p class="hero__lead">Снимаю живые истории — от первого взгляда до последнего танца. Тихий свет, честные эмоции, монтаж, который хочется пересматривать.</p>
+      <div class="rule" role="presentation"></div>
+      <a class="kicker hero__cue" href="#works">Смотреть работы ↓</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="works reveal" id="works" aria-labelledby="works-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" id="works-title">Работы</h2>
+          <span class="kicker" id="works-count"></span>
+        </div>
+        <!-- Лента рендерится из массива WORKS в js/main.js; клик по карточке открывает Vimeo в <dialog> -->
+        <div class="works__grid" id="works-grid"></div>
+      </div>
+    </section>
+
+    <section class="about reveal" id="about" aria-labelledby="about-title">
+      <div class="container about__grid">
+        <div class="about__side">
+          <h2 class="kicker" id="about-title">О себе</h2>
+          <div class="about__portrait ph-4" role="img" aria-label="Портрет автора — заглушка"></div>
+        </div>
+        <p class="about__text">Меня зовут —, я снимаю свадьбы и события уже несколько лет. Люблю естественный свет и моменты, которые не замечаешь на бегу. Приезжаю заранее, знаю, где встать, и не мешаю празднику.</p>
+      </div>
+    </section>
+
+    <section class="contacts reveal" id="contacts" aria-labelledby="contacts-title">
+      <div class="container">
+        <h2 class="kicker" id="contacts-title">Контакты</h2>
+        <ul class="contacts__list">
+          <li><a href="https://t.me/username" rel="noopener">Telegram <span>@username</span></a></li>
+          <li><a href="tel:+70000000000">[PHONE_MASKED_FOR_YOU] <span>Звонок</span></a></li>
+          <li><a href="https://vk.com/username" rel="noopener">VK <span>/username</span></a></li>
+          <li><a href="mailto:hello@example.com">hello@example.com <span>Почта</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer__row">
+        <span>© <span id="year">2024</span> Имя Фамилия · видеограф</span>
+        <span>Сделано с любовью к кадру</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Лайтбокс: iframe создаётся по клику, удаляется при закрытии (тикет «Лента работ с Vimeo-лайтбоксом») -->
+  <dialog id="lightbox" class="lightbox" aria-label="Видео">
+    <button class="lightbox__close" type="button" aria-label="Закрыть">×</button>
+    <div class="lightbox__frame" id="lightbox-frame"></div>
+  </dialog>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

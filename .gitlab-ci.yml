@@ -1,0 +1,17 @@
+# Публикация статического сайта (index.html, css/, js/, images/) на GitLab Pages.
+# Сборки нет: файлы переносятся как есть в публикуемый каталог public/.
+# Публикуется только содержимое сайта — prototype/ и .scratch/ остаются в репозитории.
+deploy-pages:
+  stage: deploy
+  script:
+    - mkdir -p public
+    - cp -r index.html css js public/
+    - if [ -d images ]; then cp -r images public/; fi
+  # Актуальный синтаксис GitLab 17.10+: публикует public/ и сам добавляет его в artifacts:paths.
+  pages: true
+  # Явный artifacts:paths нужен для GitLab < 17.10; на 17.10+ избыточен, но безвреден.
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ПРОТОТИП · дизайн-концепция one-pager видеографа</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&family=Syne:wght@600;800&display=swap" rel="stylesheet">
+<!--
+  ПРОТОТИП (throwaway, не продакшн).
+  Три радикально разных направления для одного лендинга, ?variant=A|B|C.
+  Открыть: просто открыть файл в браузере. Стрелки ‹ › или ← → переключают вариант.
+  Плейсхолдеры-«кадры» — градиенты, реальных фото нет.
+-->
+<style>
+/* ============================================================
+   База / общие примитивы прототипа
+   ============================================================ */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#000;color:#fff;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.variant{display:block}
+.variant[hidden]{display:none!important}
+
+/* «кадры»-заглушки: разные градиенты = разные киношные кадры */
+.still{position:relative;overflow:hidden;background:#1a1a1d}
+.still::after{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 3px),
+  radial-gradient(120% 120% at 70% 10%,transparent 40%,rgba(0,0,0,.55));pointer-events:none}
+.s1{background:linear-gradient(135deg,#2b2419,#6b5636 55%,#12100c)}
+.s2{background:linear-gradient(150deg,#0f1b24,#2e5566 60%,#0a0d10)}
+.s3{background:linear-gradient(120deg,#241016,#5e2b3a 55%,#120709)}
+.s4{background:linear-gradient(160deg,#141414,#4a4a4a 60%,#0b0b0b)}
+.s5{background:linear-gradient(140deg,#101c16,#356048 60%,#0a0f0c)}
+.s6{background:linear-gradient(130deg,#1b1526,#4a3a6b 58%,#0d0a12)}
+
+/* ============================================================
+   Плавающий переключатель вариантов (не часть дизайна)
+   ============================================================ */
+.p-switcher{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;
+  display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:999px;
+  background:rgba(255,255,255,.96);color:#111;box-shadow:0 8px 30px rgba(0,0,0,.45);
+  font:500 13px/1 Inter,system-ui,sans-serif}
+.p-switcher .p-arrow{border:0;background:#111;color:#fff;width:30px;height:30px;border-radius:999px;cursor:pointer;font-size:16px;line-height:1}
+.p-switcher .p-arrow:hover{background:#333}
+.p-label{padding:0 10px;white-space:nowrap}
+.p-label b{font-family:ui-monospace,monospace}
+.p-hint{position:fixed;left:50%;bottom:64px;transform:translateX(-50%);z-index:9999;
+  font:400 11px/1 Inter,sans-serif;color:rgba(255,255,255,.55);letter-spacing:.08em;text-transform:uppercase}
+.vA{--bg:#0a0a0b;--fg:#f2efe9;--muted:#9a968d;--accent:#c9a227;--line:rgba(242,239,233,.16);
+  --display:"Cormorant Garamond",Georgia,serif;--body:Inter,system-ui,sans-serif}
+.vB{--bg:#000;--fg:#ffffff;--muted:#8a8f98;--accent:#8fa9c9;--line:rgba(255,255,255,.18);
+  --display:"Archivo Black",Impact,sans-serif;--body:Inter,system-ui,sans-serif}
+.vC{--bg:#101010;--fg:#efe6d8;--muted:#a2947f;--accent:#ff5a1f;--line:rgba(239,230,216,.2);
+  --display:"Syne",Inter,sans-serif;--body:Inter,system-ui,sans-serif}
+
+/* style-tile полоса — служебная, показывает палитру/шрифты варианта */
+.tile{display:flex;flex-wrap:wrap;gap:22px;align-items:center;
+  padding:16px clamp(20px,5vw,64px);border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.02);font:400 12px/1.5 var(--body);color:var(--muted)}
+.tile .sw{display:flex;gap:8px;align-items:center}
+.tile .dot{width:20px;height:20px;border-radius:4px;border:1px solid var(--line)}
+.tile .type-d{font-family:var(--display);color:var(--fg);font-size:20px}
+.tile b{color:var(--fg);font-weight:500}
+.tile .tag{text-transform:uppercase;letter-spacing:.16em;font-size:10px}
+
+/* Контакты-«ссылки» общий вид для всех вариантов (разное оформление) */
+.contacts a{text-decoration:none}
+
+/* футер */
+footer.ft{padding:28px clamp(20px,5vw,64px);border-top:1px solid var(--line);
+  color:var(--muted);font:400 12px/1.6 var(--body);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* ============================================================
+   ВАРИАНТ A — «Кино» · редакционный, крупная тонкая антиква
+   ============================================================ */
+.vA{background:var(--bg);color:var(--fg)}
+.vA .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.vA .kicker{font:400 11px/1 var(--body);letter-spacing:.34em;text-transform:uppercase;color:var(--muted)}
+.vA .hero{position:relative;min-height:86vh;display:flex;align-items:flex-end;border-bottom:1px solid var(--line)}
+.vA .hero .still{position:absolute;inset:0}
+.vA .hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(10,10,11,.95))}
+.vA .hero .inner{position:relative;padding:0 0 clamp(40px,8vh,90px)}
+.vA .hero h1{font-family:var(--display);font-weight:300;font-size:clamp(52px,10vw,140px);line-height:.95;margin:14px 0 0}
+.vA .hero p{max-width:52ch;color:var(--muted);font-size:clamp(14px,1.5vw,18px);line-height:1.7;margin:22px 0 0}
+.vA .rule{height:1px;background:var(--line);margin:34px 0}
+.vA .works{padding:clamp(50px,9vw,110px) 0}
+.vA .works-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:40px}
+.vA .works h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,4vw,52px);margin:0}
+.vA .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px 26px}
+.vA .card{cursor:pointer;background:none;border:0;padding:0;text-align:left;color:inherit}
+.vA .card .still{aspect-ratio:4/5;transition:filter .5s,transform .6s}
+.vA .card:hover .still{filter:brightness(1.15);transform:scale(1.015)}
+.vA .card .idx{font:400 11px/1 ui-monospace,monospace;color:var(--accent);margin:14px 0 6px;letter-spacing:.1em}
+.vA .card .t{font-family:var(--display);font-size:clamp(20px,2.2vw,28px);font-weight:400;margin:0}
+.vA .card .y{color:var(--muted);font-size:12px;margin-top:4px}
+.vA .card.feat{grid-column:span 2}
+.vA .card.feat .still{aspect-ratio:16/10}
+.vA .about{display:grid;grid-template-columns:200px 1fr;gap:34px;padding:clamp(50px,9vw,110px) 0;border-top:1px solid var(--line)}
+.vA .about .txt{font-family:var(--display);font-size:clamp(22px,3vw,38px);line-height:1.35;font-weight:300;max-width:24ch}
+.vA .contacts{padding:clamp(40px,7vw,90px) 0;border-top:1px solid var(--line)}
+.vA .contacts a{display:block;font-family:var(--display);font-size:clamp(30px,5vw,64px);font-weight:300;
+  padding:14px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.vA .contacts a span{font:400 12px/1 var(--body);color:var(--muted);letter-spacing:.2em;text-transform:uppercase}
+.vA .contacts a:hover{color:var(--accent)}
+
+/* ============================================================
+   ВАРИАНТ B — «Мозаика» · плотная тяжёлая типографика, много кадров
+   ============================================================ */
+.vB{background:var(--bg);color:var(--fg)}
+.vB .wrap{padding:0 clamp(16px,4vw,44px)}
+.vB .hero{padding:clamp(30px,5vw,56px) clamp(16px,4vw,44px) 0}
+.vB .hero .top{display:flex;justify-content:space-between;align-items:center;
+  font:400 11px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+.vB .hero h1{font-family:var(--display);font-weight:400;font-size:clamp(44px,12vw,168px);line-height:.86;
+  letter-spacing:-.02em;margin:0 0 8px;text-transform:uppercase}
+.vB .hero .sub{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  color:var(--muted);font-size:14px;padding:18px 0;border-top:1px solid var(--line)}
+.vB .mosaic{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:11vw;gap:6px;margin-top:10px}
+.vB .mosaic .still:nth-child(1){grid-column:span 3;grid-row:span 2}
+.vB .mosaic .still:nth-child(2){grid-column:span 3;grid-row:span 1}
+.vB .mosaic .still:nth-child(3){grid-column:span 2;grid-row:span 1}
+.vB .mosaic .still:nth-child(4){grid-column:span 1;grid-row:span 1}
+.vB .mosaic .still:nth-child(5){grid-column:span 3;grid-row:span 1}
+.vB .mosaic .still:nth-child(6){grid-column:span 3;grid-row:span 1}
+.vB .works{padding:clamp(46px,8vw,96px) 0}
+.vB .works h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(26px,4vw,46px);margin:0 0 24px}
+.vB .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.vB .card{position:relative;cursor:pointer;border:0;padding:0;background:none;color:#fff;text-align:left}
+.vB .card .still{aspect-ratio:3/4}
+.vB .card .cap{position:absolute;left:0;right:0;bottom:0;padding:16px;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.85));display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.vB .card .cap .t{font-family:var(--display);font-size:16px;text-transform:uppercase;letter-spacing:.02em}
+.vB .card .cap .y{font:400 11px/1 ui-monospace,monospace;color:var(--accent)}
+.vB .card:hover .still{filter:contrast(1.1) brightness(1.08)}
+.vB .about{padding:clamp(46px,8vw,96px) 0;border-top:1px solid var(--line)}
+.vB .about h2{font-family:var(--display);text-transform:uppercase;font-size:clamp(24px,3.4vw,40px);margin:0 0 18px}
+.vB .about p{max-width:62ch;color:var(--muted);font-size:clamp(15px,1.6vw,19px);line-height:1.75;margin:0}
+.vB .contacts{padding:clamp(46px,8vw,96px) 0;border-top:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap}
+.vB .contacts a{border:1px solid var(--line);border-radius:999px;padding:14px 22px;font-size:14px;letter-spacing:.02em}
+.vB .contacts a:hover{background:var(--fg);color:var(--bg)}
+
+/* ============================================================
+   ВАРИАНТ C — «Кадр» · сплит-скрин и горизонтальная плёнка
+   ============================================================ */
+.vC{background:var(--bg);color:var(--fg)}
+.vC .hero{display:grid;grid-template-columns:1fr 1fr;min-height:88vh;border-bottom:1px solid var(--line)}
+.vC .hero .left{padding:clamp(28px,5vw,64px);display:flex;flex-direction:column;justify-content:space-between}
+.vC .hero .mark{font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.04em}
+.vC .hero h1{font-family:var(--display);font-weight:800;font-size:clamp(38px,6.4vw,96px);line-height:.98;margin:0;letter-spacing:-.02em}
+.vC .hero .lead{color:var(--muted);max-width:38ch;font-size:15px;line-height:1.7;margin:18px 0 0}
+.vC .hero .foot{font:400 11px/1.6 ui-monospace,monospace;color:var(--muted);letter-spacing:.08em}
+.vC .hero .right{position:relative}
+.vC .hero .right .still{position:absolute;inset:0}
+.vC .hero .right .time{position:absolute;left:18px;bottom:18px;font:400 12px/1 ui-monospace,monospace;
+  background:rgba(0,0,0,.6);padding:8px 12px;border-radius:3px;color:var(--accent)}
+.vC .works{padding:clamp(46px,8vw,90px) 0}
+.vC .works .head{padding:0 clamp(28px,5vw,64px);display:flex;justify-content:space-between;align-items:baseline;margin-bottom:26px}
+.vC .works h2{font-family:var(--display);font-weight:800;font-size:clamp(24px,3.4vw,40px);margin:0}
+.vC .strip{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:0 clamp(28px,5vw,64px) 22px;scrollbar-width:none}
+.vC .strip::-webkit-scrollbar{display:none}
+.vC .strip .card{flex:0 0 min(74vw,420px);scroll-snap-align:start;border:0;background:none;padding:0;text-align:left;color:inherit;cursor:pointer}
+.vC .strip .card .still{aspect-ratio:16/9}
+.vC .strip .card .row{display:flex;justify-content:space-between;gap:12px;margin-top:12px;align-items:baseline}
+.vC .strip .card .t{font-family:var(--display);font-weight:600;font-size:17px}
+.vC .strip .card .tc{font:400 11px/1 ui-monospace,monospace;color:var(--accent)}
+.vC .strip .card:hover .still{outline:1px solid var(--accent);outline-offset:-1px}
+.vC .about{padding:clamp(46px,9vw,110px) clamp(28px,5vw,64px);border-top:1px solid var(--line)}
+.vC .about p{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.6vw,46px);line-height:1.28;margin:0;max-width:30ch}
+.vC .contacts{padding:clamp(46px,8vw,90px) clamp(28px,5vw,64px);border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line)}
+.vC .contacts a{background:var(--bg);padding:30px 24px;display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--display);font-weight:600;font-size:clamp(18px,2.4vw,28px)}
+.vC .contacts a em{font:400 11px/1 var(--body);color:var(--muted);font-style:normal;letter-spacing:.18em;text-transform:uppercase}
+.vC .contacts a:hover{color:var(--accent)}
+
+/* ---- адаптив: мобильная версия 1 колонка ---- */
+@media (max-width:860px){
+  .vA .grid{grid-template-columns:1fr}
+  .vA .card.feat{grid-column:auto}
+  .vA .about{grid-template-columns:1fr;gap:14px}
+  .vB .mosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:38vw}
+  .vB .mosaic .still:nth-child(n){grid-column:span 1;grid-row:span 1}
+  .vB .grid{grid-template-columns:1fr}
+  .vC .hero{grid-template-columns:1fr;min-height:auto}
+  .vC .hero .right{min-height:56vw;order:-1}
+  .vC .contacts{grid-template-columns:1fr}
+}
+
+/* ---- схематичный лайтбокс: один на все варианты ---- */
+dialog#lb{border:0;padding:0;background:transparent;max-width:min(94vw,1080px);width:100%}
+dialog#lb::backdrop{background:rgba(0,0,0,.86);backdrop-filter:blur(3px)}
+.lb-in{background:#0c0c0e;border:1px solid rgba(255,255,255,.16)}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;
+  font:400 12px/1 Inter,sans-serif;color:rgba(255,255,255,.6)}
+.lb-close{border:1px solid rgba(255,255,255,.25);background:none;border-radius:999px;padding:6px 12px;cursor:pointer;color:#fff}
+.lb-player{aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a1d,#2c2c31);display:flex;
+  align-items:center;justify-content:center;color:rgba(255,255,255,.5);font:400 13px/1 ui-monospace,monospace;letter-spacing:.1em}
+</style>
+</head>
+<body>
+
+<div class="p-hint">стрелки ← → или кнопки · ?variant=A|B|C</div>
+<div class="p-switcher" role="group" aria-label="Переключатель вариантов прототипа">
+  <button class="p-arrow" data-dir="-1" aria-label="Предыдущий вариант">‹</button>
+  <div class="p-label"><b id="pKey">A</b> · <span id="pName"></span></div>
+  <button class="p-arrow" data-dir="1" aria-label="Следующий вариант">›</button>
+</div>
+
+<main>
+
+<!-- ============================ ВАРИАНТ A ============================ -->
+<section class="variant vA" data-variant="A" data-name="Кино · редакционный">
+  <div class="tile">
+    <span class="tag">Style tile · A</span>
+    <span class="sw">
+      <span class="dot" style="background:#0a0a0b"></span><b>#0A0A0B</b>
+      <span class="dot" style="background:#f2efe9"></span><b>#F2EFE9</b>
+      <span class="dot" style="background:#c9a227"></span><b>#C9A227</b>
+    </span>
+    <span class="type-d">Cormorant Garamond</span>
+    <span>Inter · шкала 11 / 14 / 18 / 28 / 52+</span>
+  </div>
+
+  <header class="hero">
+    <div class="still s1"></div><div class="scrim"></div>
+    <div class="wrap inner">
+      <div class="kicker">Видеограф · свадьбы и события</div>
+      <h1>Кадры,<br>которые<br>остаются</h1>
+      <p>Снимаю живые истории — от первого взгляда до последнего танца. Тихий свет, честные эмоции, монтаж, который хочется пересматривать.</p>
+      <div class="rule"></div>
+      <div class="kicker">Смотреть работы ↓</div>
+    </div>
+  </header>
+
+  <div class="wrap works">
+    <div class="works-head"><h2>Работы</h2><span class="kicker">06 фильмов</span></div>
+    <div class="grid">
+      <button class="card feat" data-lb="1"><div class="still s1"></div><div class="idx">01</div><p class="t">Аня и Дмитрий</p><div class="y">Свадьба · 2024</div></button>
+      <button class="card" data-lb="2"><div class="still s3"></div><div class="idx">02</div><p class="t">Рассвет над Волгой</p><div class="y">Love story · 2024</div></button>
+      <button class="card" data-lb="3"><div class="still s5"></div><div class="idx">03</div><p class="t">Фестиваль огней</p><div class="y">Событие · 2023</div></button>
+      <button class="card" data-lb="4"><div class="still s2"></div><div class="idx">04</div><p class="t">Марина и Кирилл</p><div class="y">Свадьба · 2023</div></button>
+      <button class="card" data-lb="5"><div class="still s4"></div><div class="idx">05</div><p class="t">Северная история</p><div class="y">Свадьба · 2022</div></button>
+      <button class="card" data-lb="6"><div class="still s6"></div><div class="idx">06</div><p class="t">Тёплый вечер</p><div class="y">Портрет · 2022</div></button>
+    </div>
+  </div>
+
+  <div class="wrap about">
+    <div class="about-side">
+      <div class="kicker">О себе</div>
+      <div class="still s4" style="aspect-ratio:3/4;margin-top:16px"></div>
+    </div>
+    <p class="txt">Меня зовут —, я снимаю свадьбы и события уже несколько лет. Люблю естественный свет и моменты, которые не замечаешь на бегу. Приезжаю заранее, знаю, где встать, и не мешаю празднику.</p>
+  </div>
+
+  <div class="wrap contacts">
+    <a href="#" aria-label="Telegram">Telegram <span>@username</span></a>
+    <a href="#" aria-label="[PHONE_MASKED_FOR_YOU]"><span>Звонок</span></a>
+    <a href="#" aria-label="VK">VK <span>/username</span></a>
+    <a href="#" aria-label="E-mail">hello@example.com <span>Почта</span></a>
+  </div>
+
+  <footer class="ft"><span>© 2024 — Имя Фамилия · видеограф</span><span>Сделано с любовью к кадру</span></footer>
+</section>
+
+<!-- ============================ ВАРИАНТ B ============================ -->
+<section class="variant vB" data-variant="B" data-name="Мозаика · плотный" hidden>
+  <div class="tile">
+    <span class="tag">Style tile · B</span>
+    <span class="sw">
+      <span class="dot" style="background:#000"></span><b>#000000</b>
+      <span class="dot" style="background:#ffffff"></span><b>#FFFFFF</b>
+      <span class="dot" style="background:#8fa9c9"></span><b>#8FA9C9</b>
+    </span>
+    <span class="type-d">Archivo Black</span>
+    <span>Inter · шкала 11 / 14 / 16 / 26 / 44+</span>
+  </div>
+
+  <header class="hero">
+    <div class="top"><span>Видеограф</span><span>Свадьбы · События</span><span>RU</span></div>
+    <h1>Видео<br>о вас</h1>
+    <div class="sub"><span>Живые истории, снятые без суеты</span><span>6 фильмов · 2019—2024</span></div>
+  </header>
+  <div class="wrap">
+    <div class="mosaic">
+      <div class="still s1"></div><div class="still s2"></div><div class="still s3"></div>
+      <div class="still s4"></div><div class="still s5"></div><div class="still s6"></div>
+    </div>
+  </div>
+
+  <div class="wrap works">
+    <h2>Избранное</h2>
+    <div class="grid">
+      <button class="card" data-lb="1"><div class="still s1"></div><div class="cap"><span class="t">Аня и Дмитрий</span><span class="y">01</span></div></button>
+      <button class="card" data-lb="2"><div class="still s3"></div><div class="cap"><span class="t">Рассвет над Волгой</span><span class="y">02</span></div></button>
+      <button class="card" data-lb="3"><div class="still s5"></div><div class="cap"><span class="t">Фестиваль огней</span><span class="y">03</span></div></button>
+      <button class="card" data-lb="4"><div class="still s2"></div><div class="cap"><span class="t">Марина и Кирилл</span><span class="y">04</span></div></button>
+      <button class="card" data-lb="5"><div class="still s4"></div><div class="cap"><span class="t">Северная история</span><span class="y">05</span></div></button>
+      <button class="card" data-lb="6"><div class="still s6"></div><div class="cap"><span class="t">Тёплый вечер</span><span class="y">06</span></div></button>
+    </div>
+  </div>
+
+  <div class="wrap about">
+    <h2>О себе</h2>
+    <p>Снимаю свадьбы и события. Стараюсь быть незаметным и ловить настоящее: как дрожит рука, как смеются родители, как зажигается свет. Монтаж — спокойный, по делу, без лишних эффектов.</p>
+  </div>
+
+  <div class="wrap contacts">
+    <a href="#">Telegram</a><a href="#">+7 000 000-00-00</a><a href="#">VK</a><a href="#">hello@example.com</a>
+  </div>
+
+  <footer class="ft"><span>© 2024 — Имя Фамилия</span><span>Видеограф · регион</span></footer>
+</section>
+
+<!-- ============================ ВАРИАНТ C ============================ -->
+<section class="variant vC" data-variant="C" data-name="Кадр · сплит-скрин" hidden>
+  <div class="tile">
+    <span class="tag">Style tile · C</span>
+    <span class="sw">
+      <span class="dot" style="background:#101010"></span><b>#101010</b>
+      <span class="dot" style="background:#efe6d8"></span><b>#EFE6D8</b>
+      <span class="dot" style="background:#ff5a1f"></span><b>#FF5A1F</b>
+    </span>
+    <span class="type-d">Syne</span>
+    <span>Inter · шкала 11 / 13 / 15 / 24 / 48+</span>
+  </div>
+
+  <header class="hero">
+    <div class="left">
+      <div class="mark">ИМЯ ФАМИЛИЯ — ВИДЕОГРАФ</div>
+      <div>
+        <h1>Снимаю<br>вашу<br>историю</h1>
+        <p class="lead">Свадьбы и события. Тёплый свет, живые эмоции, кино, которое останется с вами.</p>
+      </div>
+      <div class="foot">SCROLL / ЛИСТАЙ · 6 РАБОТ</div>
+    </div>
+    <div class="right">
+      <div class="still s1"></div>
+      <div class="time">00:00 / 03:12</div>
+    </div>
+  </header>
+
+  <div class="works">
+    <div class="head"><h2>Работы</h2><span class="foot" style="color:var(--muted);font:400 11px/1 ui-monospace,monospace">→ прокрутка</span></div>
+    <div class="strip">
+      <button class="card" data-lb="1"><div class="still s1"></div><div class="row"><span class="t">Аня и Дмитрий</span><span class="tc">03:12</span></div></button>
+      <button class="card" data-lb="2"><div class="still s3"></div><div class="row"><span class="t">Рассвет над Волгой</span><span class="tc">02:04</span></div></button>
+      <button class="card" data-lb="3"><div class="still s5"></div><div class="row"><span class="t">Фестиваль огней</span><span class="tc">04:41</span></div></button>
+      <button class="card" data-lb="4"><div class="still s2"></div><div class="row"><span class="t">Марина и Кирилл</span><span class="tc">05:20</span></div></button>
+      <button class="card" data-lb="5"><div class="still s4"></div><div class="row"><span class="t">Северная история</span><span class="tc">01:58</span></div></button>
+      <button class="card" data-lb="6"><div class="still s6"></div><div class="row"><span class="t">Тёплый вечер</span><span class="tc">02:37</span></div></button>
+    </div>
+  </div>
+
+  <div class="about">
+    <p>«Я не снимаю постановку. Я жду момент — и он случается сам».</p>
+  </div>
+
+  <div class="contacts">
+    <a href="#">Telegram <em>@username</em></a>
+    <a href="#">[PHONE_MASKED_FOR_YOU] <em>Звонок</em></a>
+    <a href="#">VK <em>/username</em></a>
+    <a href="#">E-mail <em>hello@example.com</em></a>
+  </div>
+
+  <footer class="ft"><span>© 2024 — Имя Фамилия</span><span>Видеограф</span></footer>
+</section>
+
+</main>
+
+<dialog id="lb">
+  <div class="lb-in">
+    <div class="lb-bar"><span id="lbTitle">Работа</span><button class="lb-close" id="lbClose">Закрыть · Esc</button></div>
+    <div class="lb-player">VIMEO PLAYER · 16:9 · autoplay / muted / dnt</div>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  var KEYS = ['A','B','C'];
+  var variants = Array.prototype.slice.call(document.querySelectorAll('.variant'));
+  var byKey = {};
+  variants.forEach(function(v){ byKey[v.dataset.variant] = v; });
+  var keyEl = document.getElementById('pKey');
+  var nameEl = document.getElementById('pName');
+  var current = KEYS[0];
+
+  function show(k){
+    if(KEYS.indexOf(k) < 0) k = KEYS[0];
+    current = k;
+    variants.forEach(function(v){ v.hidden = (v.dataset.variant !== k); });
+    keyEl.textContent = k;
+    nameEl.textContent = byKey[k] ? byKey[k].dataset.name : '';
+    var url = new URL(location.href);
+    url.searchParams.set('variant', k);
+    history.replaceState(null, '', url);
+    window.scrollTo({top:0,behavior:'instant' in window ? 'instant' : 'auto'});
+  }
+
+  function cycle(dir){
+    var i = KEYS.indexOf(current) + dir;
+    i = (i + KEYS.length) % KEYS.length;
+    show(KEYS[i]);
+  }
+
+  document.querySelectorAll('.p-arrow').forEach(function(b){
+    b.addEventListener('click', function(){ cycle(parseInt(b.dataset.dir,10)); });
+  });
+
+  document.addEventListener('keydown', function(e){
+    var t = e.target;
+    if(t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+    if(e.key === 'ArrowLeft') cycle(-1);
+    if(e.key === 'ArrowRight') cycle(1);
+  });
+
+  var initial = new URLSearchParams(location.search).get('variant');
+  show(initial || KEYS[0]);
+
+  /* схематичный лайтбокс */
+  var lb = document.getElementById('lb');
+  document.querySelectorAll('[data-lb]').forEach(function(card){
+    card.addEventListener('click', function(){
+      var t = card.querySelector('.t');
+      document.getElementById('lbTitle').textContent = t ? t.textContent : 'Работа';
+      lb.showModal();
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', function(){ lb.close(); });
+  lb.addEventListener('click', function(e){ if(e.target === lb) lb.close(); });
+})();
+</script>
+</body>
+</html>
