@@ -5,23 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!--
-    ЗАГЛУШКИ (заменить при получении контента, тикет «Заменить заглушки реальным контентом»):
-      • имя/бренд: "Имя Фамилия" в title, og:*, hero-kicker, футере;
-      • канонический URL и og:url — свой домен, когда появится (сейчас lapingleb.github.io/onepage-lepeha);
+    ОСТАВШИЕСЯ ЗАГЛУШКИ (заменить при получении контента, тикет «Заменить заглушки реальным контентом»):
+      • телефон: tel: и подпись в секции «Контакты» и ссылка в футере (сейчас заглушки);
+      • e-mail: mailto: и подпись в секции «Контакты» (сейчас hello@example.com);
+      • портрет автора в «О себе» и hero-кадр: задать --hero-image в css/styles.css (сейчас градиент);
+      • логотип — если появится (сейчас подпись текстом);
+      • канонический URL, og:url и og:image — свой домен, когда появится (сейчас lapingleb.github.io/onepage-lepeha);
       • img/og-cover.jpg (1200×630, JPEG/PNG, < 5 МБ);
-      • контакты в секции «Контакты» (t.me, tel:, vk.com, mailto:);
-      • hero-кадр: задать --hero-image в css/styles.css (сейчас градиент);
       • постеры работ: массив WORKS в js/main.js.
     Пути к css/js — относительные, чтобы сайт работал и на file://, и на project Pages (/onepage-lepeha/).
   -->
-  <title>Имя Фамилия — видеограф | Свадьбы и события</title>
+  <title>Евгений Лепешкин — видеограф | Свадьбы и события</title>
   <meta name="description" content="Съёмка свадеб и событий. Кинематографичные фильмы, живые эмоции, монтаж, который хочется пересматривать.">
   <link rel="canonical" href="https://lapingleb.github.io/onepage-lepeha/">
 
   <!-- Open Graph: Telegram, VK -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Имя Фамилия — видеограф">
-  <meta property="og:title" content="Имя Фамилия — видеограф | Свадьбы и события">
+  <meta property="og:site_name" content="Евгений Лепешкин — видеограф">
+  <meta property="og:title" content="Евгений Лепешкин — видеограф | Свадьбы и события">
   <meta property="og:description" content="Съёмка свадеб и событий. Кинематографичные фильмы, живые эмоции.">
   <meta property="og:url" content="https://lapingleb.github.io/onepage-lepeha/">
   <meta property="og:image" content="https://lapingleb.github.io/onepage-lepeha/img/og-cover.jpg">
@@ -34,7 +35,7 @@
 
   <!-- Twitter/X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Имя Фамилия — видеограф">
+  <meta name="twitter:title" content="Евгений Лепешкин — видеограф">
   <meta name="twitter:description" content="Съёмка свадеб и событий.">
   <meta name="twitter:image" content="https://lapingleb.github.io/onepage-lepeha/img/og-cover.jpg">
 
@@ -76,7 +77,7 @@
           <h2 class="kicker" id="about-title">О себе</h2>
           <div class="about__portrait ph-4" role="img" aria-label="Портрет автора — заглушка"></div>
         </div>
-        <p class="about__text">Меня зовут —, я снимаю свадьбы и события уже несколько лет. Люблю естественный свет и моменты, которые не замечаешь на бегу. Приезжаю заранее, знаю, где встать, и не мешаю празднику.</p>
+        <p class="about__text">Меня зовут — Евгений Лепешкин, я снимаю свадьбы и события уже несколько лет. Люблю естественный свет и моменты, которые не замечаешь на бегу. Приезжаю заранее, знаю, где встать, и не мешаю празднику.</p>
       </div>
     </section>
 
@@ -84,17 +85,22 @@
       <div class="container">
         <h2 class="kicker" id="contacts-title">Контакты</h2>
         <ul class="contacts__list">
-          <li><a href="https://t.me/username" rel="noopener">Telegram <span>@username</span></a></li>
-          <li><a href="tel:+70000000000">[PHONE_MASKED_FOR_YOU] <span>Звонок</span></a></li>
-          <li><a href="https://vk.com/username" rel="noopener">VK <span>/username</span></a></li>
-          <li><a href="mailto:hello@example.com">hello@example.com <span>Почта</span></a></li>
+          <li><a href="https://t.me/lepeshkinei" rel="noopener">Telegram <span>@lepeshkinei</span></a></li>
+          <li><a href="tel:+7(922)800-90-02">+7(922)800-90-02 <span>Звонок</span></a></li>
+          <li><a href="https://vk.me/id147800483" rel="noopener">VK <span>/id147800483</span></a></li>
+          <li><a href="mailto:lepeha228@example.com">hello@example.com <span>Почта</span></a></li>
         </ul>
       </div>
     </section>
 
     <footer class="footer">
       <div class="container footer__row">
-        <span>© <span id="year">2024</span> Имя Фамилия · видеограф</span>
+        <span>© <span id="year">2024</span> Евгений Лепешкин · видеограф</span>
+        <nav class="footer__links" aria-label="Контакты">
+          <a href="https://t.me/lepeshkinei" rel="noopener">Telegram</a>
+          <a href="https://vk.me/id147800483" rel="noopener">VK</a>
+          <a href="tel:PHONE">Телефон</a>
+        </nav>
         <span>Сделано с любовью к кадру</span>
       </div>
     </footer>

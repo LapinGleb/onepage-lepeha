@@ -271,6 +271,9 @@ button { font: inherit; color: inherit; }
   color: var(--muted);
   font-size: 12px;
 }
+.footer__links { display: flex; gap: 18px; flex-wrap: wrap; }
+.footer__links a { color: var(--muted); }
+.footer__links a:hover { color: var(--accent); }
 
 /* --- плейсхолдеры-«кадры» (градиенты вместо фото) -------------------------- */
 .ph-1 { background: linear-gradient(135deg, #2b2419, #6b5636 55%, #12100c); }
